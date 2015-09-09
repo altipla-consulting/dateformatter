@@ -3,5 +3,5 @@ package symbols
 
 var (
 	ShortMonthNames = map[string][]string{}
-	LongMonthNames = map[string][]string{}
+	LongMonthNames  = map[string][]string{}
 )

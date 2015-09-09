@@ -138,55 +138,6 @@ func nextStdChunk(layout string) (prefix string, std int, suffix string) {
 			if len(layout) >= i+2 && layout[i+1] == 'm' {
 				return layout[0:i], stdpm, layout[i+2:]
 			}
-
-		case '-': // -070000, -07:00:00, -0700, -07:00, -07
-			if len(layout) >= i+7 && layout[i:i+7] == "-070000" {
-				return layout[0:i], stdNumSecondsTz, layout[i+7:]
-			}
-			if len(layout) >= i+9 && layout[i:i+9] == "-07:00:00" {
-				return layout[0:i], stdNumColonSecondsTZ, layout[i+9:]
-			}
-			if len(layout) >= i+5 && layout[i:i+5] == "-0700" {
-				return layout[0:i], stdNumTZ, layout[i+5:]
-			}
-			if len(layout) >= i+6 && layout[i:i+6] == "-07:00" {
-				return layout[0:i], stdNumColonTZ, layout[i+6:]
-			}
-			if len(layout) >= i+3 && layout[i:i+3] == "-07" {
-				return layout[0:i], stdNumShortTZ, layout[i+3:]
-			}
-
-		case 'Z': // Z070000, Z07:00:00, Z0700, Z07:00,
-			if len(layout) >= i+7 && layout[i:i+7] == "Z070000" {
-				return layout[0:i], stdISO8601SecondsTZ, layout[i+7:]
-			}
-			if len(layout) >= i+9 && layout[i:i+9] == "Z07:00:00" {
-				return layout[0:i], stdISO8601ColonSecondsTZ, layout[i+9:]
-			}
-			if len(layout) >= i+5 && layout[i:i+5] == "Z0700" {
-				return layout[0:i], stdISO8601TZ, layout[i+5:]
-			}
-			if len(layout) >= i+6 && layout[i:i+6] == "Z07:00" {
-				return layout[0:i], stdISO8601ColonTZ, layout[i+6:]
-			}
-
-		case '.': // .000 or .999 - repeated digits for fractional seconds.
-			if i+1 < len(layout) && (layout[i+1] == '0' || layout[i+1] == '9') {
-				ch := layout[i+1]
-				j := i + 1
-				for j < len(layout) && layout[j] == ch {
-					j++
-				}
-				// String of digits must end here - only fractional second is all digits.
-				if !isDigit(layout, j) {
-					std := stdFracSecond0
-					if layout[i+1] == '9' {
-						std = stdFracSecond9
-					}
-					std |= (j - (i + 1)) << stdArgShift
-					return layout[0:i], std, layout[j:]
-				}
-			}
 		}
 	}
 	return layout, 0, ""
@@ -291,7 +242,8 @@ func Format(t time.Time, locale, layout string) string {
 		case stdLongYear:
 			b = appendInt(b, year, 4)
 		case stdMonth:
-			b = append(b, month.String()[:3]...)
+			m := symbols.ShortMonthNames[locale][month]
+			b = append(b, m...)
 		case stdLongMonth:
 			m := symbols.LongMonthNames[locale][month]
 			b = append(b, m...)
