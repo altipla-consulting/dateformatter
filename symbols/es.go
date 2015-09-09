@@ -3,6 +3,22 @@
 package symbols
 
 func init() {
+	ShortMonthNames[`es`] = []string{
+		`---`,
+		`ene.`,
+		`feb.`,
+		`mar.`,
+		`abr.`,
+		`may.`,
+		`jun.`,
+		`jul.`,
+		`ago.`,
+		`sept.`,
+		`oct.`,
+		`nov.`,
+		`dic.`,
+	}
+
 	LongMonthNames[`es`] = []string{
 		`---`,
 		`enero`,

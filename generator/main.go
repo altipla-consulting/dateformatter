@@ -82,7 +82,7 @@ func extractLDML(locale string, ldml *cldr.LDML) error {
 			}
 
 			for _, width := range ctx.MonthWidth {
-				if width.Type != "wide" {
+				if width.Type != "wide" && width.Type != "abbreviated" {
 					continue
 				}
 
@@ -98,7 +98,12 @@ func extractLDML(locale string, ldml *cldr.LDML) error {
 					months[n] = month.Data()
 				}
 
-				fmt.Fprintf(dest, "\tLongMonthNames[`%s`] = []string{\n", locale)
+				nameType := "LongMonthNames"
+				if width.Type == "abbreviated" {
+					nameType = "ShortMonthNames"
+				}
+
+				fmt.Fprintf(dest, "\t%s[`%s`] = []string{\n", nameType, locale)
 				for _, m := range months {
 					fmt.Fprintf(dest, "\t\t`%s`,\n", m)
 				}
