@@ -2,5 +2,5 @@
 // 
 // It has the same formatting options as the time package, excluding formatting of timezones and nanoseconds.
 // 
-// It has support for the following langs: spanish, english.
+// It has support for the following langs: spanish, english, french and russian.
 package dateformatter
