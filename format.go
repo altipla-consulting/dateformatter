@@ -8,7 +8,7 @@ package dateformatter
 
 import (
 	"errors"
-	"strconv"
+	"fmt"
 	"time"
 
 	"github.com/altipla-consulting/i18n-dateformatter/symbols"
@@ -174,27 +174,17 @@ func lookup(tab []string, val string) (int, string, error) {
 // If the decimal form (excluding sign) is shorter than width, the result is padded with leading 0's.
 // Duplicates functionality in strconv, but avoids dependency.
 func appendInt(b []byte, x int, width int) []byte {
-	formatted := strconv.AppendInt(b, int64(x), 10)
-
-	for i := 0; i < width-len(formatted); i++ {
-		b = append(b, '0')
-	}
-	b = append(b, formatted...)
-
-	return b
+	format := fmt.Sprintf("%%0%dd", width)
+	return append(b, []byte(fmt.Sprintf(format, x))...)
 }
 
 // Format returns a textual representation of the time value formatted
 // according to layout, which defines the format by showing how the reference
 // time, defined to be
-//  Mon Jan 2 15:04:05 -0700 MST 2006
+//  Mon Jan 2 15:04:05 2006
 // would be displayed if it were the value; it serves as an example of the
 // desired output. The same display rules will then be applied to the time
 // value.
-//
-// A fractional second is represented by adding a period and zeros
-// to the end of the seconds section of layout string, as in "15:04:05.000"
-// to format a time stamp with millisecond precision.
 //
 // Predefined layouts ANSIC, UnixDate, RFC3339 and others describe standard
 // and convenient representations of the reference time. For more information
