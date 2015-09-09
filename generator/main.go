@@ -1,3 +1,5 @@
+// Package generator helps with creating the symbols files for supported langs
+// extracting the data from CLDR.
 package main
 
 import (
