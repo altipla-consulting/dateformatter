@@ -6,13 +6,13 @@ Basic date formatter with strings extracted from CLDR
 ## Install
 
 ```shell
-go get github.com/altipla-consulting/i18n-datetime
+go get github.com/altipla-consulting/i18n-dateformatter
 ```
 
 
 ## Documentation
 
-[![GoDoc](https://godoc.org/github.com/altipla-consulting/i18n-datetime?status.svg)](https://godoc.org/github.com/altipla-consulting/i18n-datetime)
+[![GoDoc](https://godoc.org/github.com/altipla-consulting/i18n-dateformatter?status.svg)](https://godoc.org/github.com/altipla-consulting/i18n-dateformatter)
 
 
 ## Contributing
