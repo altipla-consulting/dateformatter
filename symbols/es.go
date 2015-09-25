@@ -35,4 +35,24 @@ func init() {
 		`diciembre`,
 	}
 
+	ShortWeekdays[`es`] = []string{
+		`dom.`,
+		`lun.`,
+		`mar.`,
+		`mié.`,
+		`jue.`,
+		`vie.`,
+		`sáb.`,
+	}
+
+	LongWeekdays[`es`] = []string{
+		`domingo`,
+		`lunes`,
+		`martes`,
+		`miércoles`,
+		`jueves`,
+		`viernes`,
+		`sábado`,
+	}
+
 }

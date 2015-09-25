@@ -4,4 +4,7 @@ package symbols
 var (
 	ShortMonthNames = map[string][]string{}
 	LongMonthNames  = map[string][]string{}
+
+	LongWeekdays  = map[string][]string{}
+	ShortWeekdays = map[string][]string{}
 )

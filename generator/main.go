@@ -16,6 +16,16 @@ import (
 
 var locales = flag.String("locales", "", "Locales to extract from CLDR")
 
+var weekdaysOrder = map[string]int{
+	"sun": 0,
+	"mon": 1,
+	"tue": 2,
+	"wed": 3,
+	"thu": 4,
+	"fri": 5,
+	"sat": 6,
+}
+
 func main() {
 	flag.Parse()
 
@@ -106,6 +116,36 @@ func extractLDML(locale string, ldml *cldr.LDML) error {
 				fmt.Fprintf(dest, "\t%s[`%s`] = []string{\n", nameType, locale)
 				for _, m := range months {
 					fmt.Fprintf(dest, "\t\t`%s`,\n", m)
+				}
+				fmt.Fprintln(dest, "\t}")
+				fmt.Fprintln(dest)
+			}
+		}
+
+		for _, ctx := range calendar.Days.DayContext {
+			if ctx.Type != "format" {
+				continue
+			}
+
+			for _, width := range ctx.DayWidth {
+				if width.Type != "wide" && width.Type != "abbreviated" {
+					continue
+				}
+
+				weekdays := make([]string, 7)
+
+				for _, day := range width.Day {
+					weekdays[weekdaysOrder[day.Type]] = day.Data()
+				}
+
+				nameType := "LongWeekdays"
+				if width.Type == "abbreviated" {
+					nameType = "ShortWeekdays"
+				}
+
+				fmt.Fprintf(dest, "\t%s[`%s`] = []string{\n", nameType, locale)
+				for _, d := range weekdays {
+					fmt.Fprintf(dest, "\t\t`%s`,\n", d)
 				}
 				fmt.Fprintln(dest, "\t}")
 				fmt.Fprintln(dest)

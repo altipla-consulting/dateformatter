@@ -242,9 +242,10 @@ func Format(t time.Time, locale, layout string) string {
 		case stdZeroMonth:
 			b = appendInt(b, int(month), 2)
 		case stdWeekDay:
-			b = append(b, t.Weekday().String()[:3]...)
+			s := symbols.ShortWeekdays[locale][t.Weekday()]
+			b = append(b, s...)
 		case stdLongWeekDay:
-			s := t.Weekday().String()
+			s := symbols.LongWeekdays[locale][t.Weekday()]
 			b = append(b, s...)
 		case stdDay:
 			b = appendInt(b, day, 0)
