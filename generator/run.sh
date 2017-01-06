@@ -3,7 +3,7 @@
 set -eu
 
 echo " [*] Install generator..."
-go install github.com/altipla-consulting/i18n-dateformatter/generator
+go install github.com/altipla-consulting/dateformatter/generator
 
 if [ ! -e /tmp/core.zip ]; then
   echo " [*] Download CLDR data..."
@@ -11,5 +11,5 @@ if [ ! -e /tmp/core.zip ]; then
 fi
 
 echo " [*] Generate "
-generator -locales en,es,fr,ru
+generator -locales en,es,fr,ru,de
 gofmt -w symbols

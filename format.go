@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/altipla-consulting/i18n-dateformatter/symbols"
+	"github.com/altipla-consulting/dateformatter/symbols"
 )
 
 const (

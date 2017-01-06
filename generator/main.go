@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/juju/errors"
-	"golang.org/x/text/cldr"
+	"golang.org/x/text/unicode/cldr"
 )
 
 var locales = flag.String("locales", "", "Locales to extract from CLDR")
