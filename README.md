@@ -1,5 +1,8 @@
 
 # dateformatter
+
+> **DEPRECATED:** Use https://github.com/altipla-consulting/libs instead.
+
 Basic date formatter with strings extracted from CLDR
 
 
